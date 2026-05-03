@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Talents on the Move – Coaching & Talent Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream: #f5f0e8;
+    --warm-white: #faf8f4;
+    --deep: #1a1710;
+    --mid: #4a4338;
+    --muted: #8a7f6e;
+    --gold: #b89a5a;
+    --gold-light: #d4b878;
+    --border: rgba(184,154,90,0.2);
+    --border-light: rgba(74,67,56,0.1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--warm-white);
+    color: var(--deep);
+    font-weight: 300;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 5vw;
+    background: rgba(250,248,244,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-light);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem; font-weight: 400; letter-spacing: 0.12em;
+    color: var(--deep); text-transform: uppercase;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+  .nav-links a {
+    font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--cream) !important;
+    background: var(--deep);
+    padding: 0.65rem 1.6rem; border-radius: 1px;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--gold) !important; color: var(--deep) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 0 5vw 6rem;
+    position: relative; overflow: hidden;
+    background: var(--deep);
+  }
+  .hero-bg-text {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(8rem, 18vw, 22rem); font-weight: 300;
+    color: rgba(255,255,255,0.025); white-space: nowrap;
+    pointer-events: none; user-select: none; letter-spacing: 0.05em;
+  }
+  .hero-label {
+    font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .hero-label::after { content: ''; display: block; width: 3rem; height: 1px; background: var(--gold); }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 7vw, 7rem); font-weight: 300;
+    color: var(--cream); line-height: 1.05; max-width: 900px;
+    margin-bottom: 2rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold-light); }
+  .hero-sub {
+    font-size: 1rem; color: rgba(245,240,232,0.55); max-width: 480px;
+    margin-bottom: 3rem; line-height: 1.8;
+  }
+  .hero-actions { display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap; }
+  .btn-primary {
+    font-family: 'Jost', sans-serif; font-size: 0.78rem; font-weight: 400;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    background: var(--gold); color: var(--deep);
+    padding: 1rem 2.5rem; border: none; cursor: pointer;
+    border-radius: 1px; transition: background 0.2s, transform 0.15s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-ghost {
+    font-family: 'Jost', sans-serif; font-size: 0.78rem; font-weight: 400;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(245,240,232,0.6);
+    padding: 1rem 2.5rem; border: 1px solid rgba(245,240,232,0.2);
+    background: transparent; cursor: pointer; border-radius: 1px;
+    transition: border-color 0.2s, color 0.2s; text-decoration: none; display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold-light); }
+  .hero-stats {
+    display: flex; gap: 4rem; margin-top: 5rem;
+    padding-top: 2.5rem; border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .stat-n {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem; font-weight: 300; color: var(--gold-light);
+    line-height: 1;
+  }
+  .stat-l { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,240,232,0.35); margin-top: 0.4rem; }
+
+  /* ── SECTIONS ── */
+  section { padding: 7rem 5vw; }
+  .section-tag {
+    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-tag::before { content: ''; display: block; width: 2rem; height: 1px; background: var(--gold); }
+  h2.section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.8rem); font-weight: 300;
+    line-height: 1.15; margin-bottom: 1.25rem;
+  }
+  h2.section-title em { font-style: italic; color: var(--gold); }
+  .section-intro { font-size: 1rem; color: var(--muted); max-width: 560px; margin-bottom: 4rem; }
+
+  /* ── ABOUT ── */
+  .about-section { background: var(--cream); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+  .about-portrait {
+    aspect-ratio: 3/4; background: var(--deep);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .about-portrait-initials {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 6rem; font-weight: 300; color: rgba(184,154,90,0.3);
+    letter-spacing: 0.05em;
+  }
+  .about-portrait-label {
+    position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem;
+    font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
+  }
+  .about-certs { margin-top: 2.5rem; }
+  .about-certs-title {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.25rem;
+  }
+  .cert-item {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    font-size: 0.875rem; color: var(--mid); padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .cert-item::before { content: '—'; color: var(--gold); flex-shrink: 0; }
+  .about-text p { color: var(--mid); margin-bottom: 1.5rem; font-size: 1rem; }
+  .expertise-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+  .pill {
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    border: 1px solid var(--border); color: var(--mid);
+    padding: 0.45rem 1rem; border-radius: 1px;
+  }
+
+  /* ── SERVICES ── */
+  .services-section { background: var(--warm-white); }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border-light); }
+  .service-card {
+    background: var(--warm-white); padding: 2.5rem 2rem;
+    transition: background 0.2s; position: relative; cursor: default;
+  }
+  .service-card:hover { background: var(--cream); }
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem; font-weight: 300; color: rgba(184,154,90,0.18);
+    line-height: 1; margin-bottom: 1.25rem;
+  }
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 400; margin-bottom: 0.75rem;
+  }
+  .service-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.75; }
+  .service-tag {
+    display: inline-block; margin-top: 1.25rem;
+    font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold); border-bottom: 1px solid var(--border); padding-bottom: 0.2rem;
+  }
+
+  /* ── SKILLS ASSESSMENT ── */
+  .assessment-section { background: var(--deep); color: var(--cream); }
+  .assessment-section h2.section-title { color: var(--cream); }
+  .assessment-section .section-intro { color: rgba(245,240,232,0.55); }
+  .assessment-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 1rem; }
+  .step-card {
+    border-top: 1px solid rgba(184,154,90,0.3);
+    padding-top: 1.5rem;
+  }
+  .step-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem; font-weight: 300; color: rgba(184,154,90,0.2);
+    line-height: 1; margin-bottom: 0.75rem;
+  }
+  .step-title { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--gold-light); }
+  .step-desc { font-size: 0.85rem; color: rgba(245,240,232,0.5); }
+  .assessment-detail {
+    margin-top: 3rem; padding: 2.5rem; border: 1px solid rgba(184,154,90,0.15);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+  }
+  .detail-col h3 {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300;
+    color: var(--cream); margin-bottom: 1.25rem;
+  }
+  .detail-list { list-style: none; }
+  .detail-list li {
+    font-size: 0.875rem; color: rgba(245,240,232,0.55);
+    padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex; gap: 0.75rem;
+  }
+  .detail-list li::before { content: '→'; color: var(--gold); flex-shrink: 0; }
+
+  /* ── CONSULTING ── */
+  .consulting-section { background: var(--cream); }
+  .consulting-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .consult-card {
+    padding: 2rem; border: 1px solid var(--border-light);
+    background: var(--warm-white); border-radius: 1px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .consult-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .consult-icon {
+    font-family: 'Cormorant Garamond', serif; font-size: 2rem;
+    color: var(--gold); margin-bottom: 1rem; font-weight: 300; font-style: italic;
+  }
+  .consult-name { font-size: 0.9rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.6rem; }
+  .consult-sub { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic; color: var(--muted); margin-bottom: 0.75rem; }
+  .consult-desc { font-size: 0.85rem; color: var(--muted); }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials-section { background: var(--warm-white); }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .testi-card {
+    padding: 2rem 1.75rem; border: 1px solid var(--border-light);
+    position: relative; transition: border-color 0.2s;
+  }
+  .testi-card:hover { border-color: var(--gold); }
+  .testi-quote {
+    font-family: 'Cormorant Garamond', serif; font-size: 4.5rem;
+    color: rgba(184,154,90,0.15); line-height: 0.6; margin-bottom: 0.75rem;
+  }
+  .testi-text { font-size: 0.9rem; font-style: italic; color: var(--mid); line-height: 1.85; margin-bottom: 1.5rem; }
+  .testi-author { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+  .testi-role { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+  .testi-result {
+    margin-top: 1rem; display: inline-block;
+    font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gold); border: 1px solid var(--border); padding: 0.35rem 0.75rem;
+  }
+
+  /* ── FAQ ── */
+  .faq-section { background: var(--cream); }
+  .faq-wrap { max-width: 760px; }
+  .faq-item {
+    border-bottom: 1px solid var(--border-light); cursor: pointer;
+  }
+  .faq-q {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 0; gap: 1rem;
+    font-size: 1rem; font-weight: 400;
+    transition: color 0.2s;
+  }
+  .faq-item:hover .faq-q { color: var(--gold); }
+  .faq-icon { color: var(--gold); font-size: 1.3rem; transition: transform 0.25s; flex-shrink: 0; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+  .faq-a {
+    font-size: 0.9rem; color: var(--muted); max-height: 0;
+    overflow: hidden; transition: max-height 0.35s ease, padding 0.25s;
+    line-height: 1.8;
+  }
+  .faq-item.open .faq-a { max-height: 300px; padding-bottom: 1.5rem; }
+
+  /* ── CONTACT ── */
+  .contact-section { background: var(--deep); color: var(--cream); }
+  .contact-section h2.section-title { color: var(--cream); }
+  .contact-section .section-intro { color: rgba(245,240,232,0.5); }
+  .contact-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 6rem; align-items: start; }
+  .form-group { margin-bottom: 1.25rem; }
+  .form-label { display: block; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(245,240,232,0.4); margin-bottom: 0.6rem; }
+  .form-input, .form-textarea, .form-select {
+    width: 100%; background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--cream); font-family: 'Jost', sans-serif; font-size: 0.9rem;
+    padding: 0.85rem 1rem; border-radius: 1px; outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus, .form-textarea:focus, .form-select:focus { border-color: rgba(184,154,90,0.5); }
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(245,240,232,0.2); }
+  .form-select { appearance: none; cursor: pointer; }
+  .form-select option { background: #1a1710; }
+  .form-textarea { min-height: 110px; resize: vertical; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-submit {
+    font-family: 'Jost', sans-serif; font-size: 0.78rem; font-weight: 400;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    background: var(--gold); color: var(--deep);
+    padding: 1rem 2.5rem; border: none; cursor: pointer; border-radius: 1px;
+    transition: background 0.2s, transform 0.15s; margin-top: 0.75rem; width: 100%;
+  }
+  .form-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .contact-info-items { display: flex; flex-direction: column; gap: 2rem; }
+  .ci-item { display: flex; gap: 1.25rem; align-items: flex-start; }
+  .ci-dot {
+    width: 38px; height: 38px; border: 1px solid rgba(184,154,90,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0; color: var(--gold);
+  }
+  .ci-label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.25rem; }
+  .ci-val { font-size: 0.9rem; color: rgba(245,240,232,0.55); }
+  .lang-badges { display: flex; gap: 0.75rem; margin-top: 3rem; }
+  .lang-badge {
+    font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+    border: 1px solid rgba(184,154,90,0.25); color: rgba(245,240,232,0.45);
+    padding: 0.45rem 1rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #100e09; padding: 2rem 5vw;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+    font-size: 0.75rem; color: rgba(245,240,232,0.25); letter-spacing: 0.08em;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif; font-size: 1rem;
+    color: rgba(245,240,232,0.35); letter-spacing: 0.15em; text-transform: uppercase;
+  }
+  .footer-logo span { color: rgba(184,154,90,0.5); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-label { animation: fadeUp 0.7s ease both 0.2s; }
+  .hero h1 { animation: fadeUp 0.8s ease both 0.4s; }
+  .hero-sub { animation: fadeUp 0.8s ease both 0.55s; }
+  .hero-actions { animation: fadeUp 0.8s ease both 0.7s; }
+  .hero-stats { animation: fadeUp 0.8s ease both 0.85s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Talents <span>on the</span> Move</div>
+  <div class="nav-links">
+    <a href="#about">À propos</a>
+    <a href="#services">Services</a>
+    <a href="#consulting">Consulting</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact" class="nav-cta">Séance découverte</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-text">Talent</div>
+  <div class="hero-label">Coach PCC · ICF Certifiée · Consultante RH</div>
+  <h1>Unlock the full<br>potential of your<br><em>talents.</em></h1>
+  <p class="hero-sub">Coaching individuel, bilan de compétences et consulting en gestion des talents — pour les individus et les organisations qui veulent aller plus loin.</p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary">Séance découverte gratuite</a>
+    <a href="#services" class="btn-ghost">Découvrir les services</a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-n">15+</div>
+      <div class="stat-l">Années en RH international</div>
+    </div>
+    <div>
+      <div class="stat-n">PCC</div>
+      <div class="stat-l">ICF Professional Certified</div>
+    </div>
+    <div>
+      <div class="stat-n">FR/EN</div>
+      <div class="stat-l">Sessions bilingues</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="section-tag">À propos</div>
+  <div class="about-grid">
+    <div>
+      <div class="about-portrait">
+        <div class="about-portrait-initials">TM</div>
+        <div class="about-portrait-label">Coach PCC · Consultante RH</div>
+      </div>
+      <div class="about-certs">
+        <div class="about-certs-title">Formations &amp; Certifications</div>
+        <div class="cert-item">Professional Certified Coach (PCC) – ICF</div>
+        <div class="cert-item">Leading &amp; Coaching Academy – ACC training</div>
+        <div class="cert-item">Nova Terra – Professional Certified Coach (Pamela Richarde, MCC)</div>
+        <div class="cert-item">Burn-out &amp; Stress Management – Ressources Formation</div>
+        <div class="cert-item">Process Communication Model – Kahler Communication Belgium</div>
+        <div class="cert-item">Neurosciences – Institute of Neurocognitivism</div>
+        <div class="cert-item">Certified PAPI 3 (questionnaire personnalité) – Cubiks Belgium</div>
+      </div>
+    </div>
+    <div class="about-text">
+      <h2 class="section-title">Transformer le potentiel en <em>résultats</em></h2>
+      <p>Forte de près de 15 ans d'expérience en ressources humaines au sein de grandes entreprises internationales, j'accompagne individus et organisations à libérer leur plein potentiel.</p>
+      <p>En tant que Coach Professionnelle Certifiée (PCC) par l'International Coaching Federation (ICF), j'ai guidé des clients de divers horizons culturels vers leurs objectifs professionnels, en surmontant leurs défis et en prenant des décisions éclairées.</p>
+      <p>Mon approche est personnalisée, fondée sur une relation de confiance et d'écoute active. Je travaille avec dynamisme et enthousiasme pour que chaque session soit un véritable espace de partage et de bien-être. <strong>La confidentialité est absolue</strong> sur toutes les informations partagées.</p>
+      <div class="expertise-pills">
+        <span class="pill">Transitions de carrière</span>
+        <span class="pill">Leadership</span>
+        <span class="pill">Women coaching</span>
+        <span class="pill">Expat coaching</span>
+        <span class="pill">Assessment centers</span>
+        <span class="pill">Burn-out</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="section-tag">Coaching individuel</div>
+  <h2 class="section-title">Des accompagnements <em>sur mesure</em></h2>
+  <p class="section-intro">Chaque programme est adapté à votre situation unique, vos objectifs et votre secteur d'activité. Sessions en français et en anglais.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-name">Career Coaching</div>
+      <div class="service-desc">Navigation de carrière, stratégie de recherche d'emploi, personal branding LinkedIn, préparation aux entretiens, transitions professionnelles et équilibre vie pro/perso.</div>
+      <span class="service-tag">Exploration · Objectifs · Action</span>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-name">Women Life &amp; Career Coaching</div>
+      <div class="service-desc">Accompagnement des femmes dans les grandes transitions de vie : maternité, retour au travail, reconversion, ménopause. Retrouver confiance, authenticité et équilibre.</div>
+      <span class="service-tag">Confiance · Authenticité · Équilibre</span>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-name">Burn-out / Bore-out / Brown-out</div>
+      <div class="service-desc">Identification des causes profondes, plan d'action progressif, accompagnement au retour à une vie active et épanouissante. Approche adaptée à la nature de votre syndrome.</div>
+      <span class="service-tag">Écoute · Reconstruction · Élan</span>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-name">Expat Career Coaching</div>
+      <div class="service-desc">Soutien au partenaire de l'expatrié dans son projet de carrière en Belgique : intégration culturelle, stratégie de recherche, branding, networking et entretiens.</div>
+      <span class="service-tag">Intégration · Stratégie · Réseau</span>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <div class="service-name">Executive &amp; Leadership Coaching</div>
+      <div class="service-desc">Pour dirigeants et hauts potentiels : décision stratégique, présence executive, intelligence émotionnelle, gestion des conflits, planification de la succession.</div>
+      <span class="service-tag">Impact · Présence · Influence</span>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <div class="service-name">Assessment Centers Coaching</div>
+      <div class="service-desc">Préparation aux assessment centers : entretiens comportementaux (méthode STAR), jeux de rôle, in-tray exercises, présentations. Exercices fictifs et feedback personnalisé.</div>
+      <span class="service-tag">Préparation · Pratique · Confiance</span>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS ASSESSMENT -->
+<section class="assessment-section" id="assessment">
+  <div class="section-tag">Bilan de compétences</div>
+  <h2 class="section-title" style="color:var(--cream)">Bien plus qu'un outil de <em style="color:var(--gold-light)">recherche d'emploi</em></h2>
+  <p class="section-intro">Le bilan de compétences permet de faire le point sur votre vie professionnelle ET personnelle, pour avancer sereinement en construisant sur vos forces réelles.</p>
+  <div class="assessment-steps">
+    <div class="step-card">
+      <div class="step-letter">I</div>
+      <div class="step-title">Ce que j'ai fait</div>
+      <div class="step-desc">Prise de conscience des réalisations clés, reconnexion à la confiance en soi et au potentiel.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-letter">II</div>
+      <div class="step-title">Qui je suis</div>
+      <div class="step-desc">Test de personnalité, profil motivationnel, valeurs personnelles et professionnelles fondamentales.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-letter">III</div>
+      <div class="step-title">Ce que je veux</div>
+      <div class="step-desc">Exploration de nouvelles pistes, alignement avec vos aspirations et les réalités du marché.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-letter">IV</div>
+      <div class="step-title">Ce que je vais faire</div>
+      <div class="step-desc">Plan d'action concret, CV structuré sur les résultats, projet de vie cohérent et harmonieux.</div>
+    </div>
+  </div>
+  <div class="assessment-detail">
+    <div class="detail-col">
+      <h3>Ce que couvre le bilan</h3>
+      <ul class="detail-list">
+        <li>Analyse des compétences professionnelles et personnelles acquises</li>
+        <li>Reconnexion aux motivations primaires (enfant intérieur)</li>
+        <li>Test de personnalité (PAPI 3) et profil motivationnel</li>
+        <li>Identification des croyances limitantes et blocages</li>
+        <li>Clarification du projet de carrière en lien avec le marché</li>
+        <li>Rapport de synthèse remis au client</li>
+      </ul>
+    </div>
+    <div class="detail-col">
+      <h3>Modalités pratiques</h3>
+      <ul class="detail-list">
+        <li>Entretien initial gratuit pour définir le cadre</li>
+        <li>7 sessions de 1h30 (10,5h au total) sur 4 mois</li>
+        <li>Travaux de réflexion personnelle entre les sessions</li>
+        <li>Rapport de synthèse complet remis en fin de bilan</li>
+        <li>Confidentialité totale garantie</li>
+        <li>Sessions en français ou en anglais</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONSULTING -->
+<section class="consulting-section" id="consulting">
+  <div class="section-tag">Talent Management Consulting</div>
+  <h2 class="section-title">Votre partenaire en <em>gestion des talents</em></h2>
+  <p class="section-intro">J'accompagne les entreprises dans la conception et le déploiement de stratégies de talent management intégrées et alignées sur leurs objectifs business.</p>
+  <div class="consulting-grid">
+    <div class="consult-card">
+      <div class="consult-icon">∞</div>
+      <div class="consult-name">Recrutement</div>
+      <div class="consult-sub">Recruiting your talents</div>
+      <div class="consult-desc">Développement de profils de compétences, processus de recrutement objectif et rigoureux, évaluation des compétences clés pour atteindre vos objectifs.</div>
+    </div>
+    <div class="consult-card">
+      <div class="consult-icon">↑</div>
+      <div class="consult-name">Développement</div>
+      <div class="consult-sub">Developing your talents</div>
+      <div class="consult-desc">Stratégie formation, identification des besoins, curriculum d'apprentissage, plans de carrière transparents pour retenir et développer vos meilleurs éléments.</div>
+    </div>
+    <div class="consult-card">
+      <div class="consult-icon">◎</div>
+      <div class="consult-name">Performance Management</div>
+      <div class="consult-sub">Evaluating your talents</div>
+      <div class="consult-desc">Modèles de compétences, processus d'évaluation objectif et équitable, culture de feedback — coaching, mentoring et counselling intégrés.</div>
+    </div>
+    <div class="consult-card">
+      <div class="consult-icon">★</div>
+      <div class="consult-name">Leadership Development</div>
+      <div class="consult-sub">Developing your future talents</div>
+      <div class="consult-desc">Identification des hauts potentiels, programmes de développement sur-mesure, plans de succession et talent management intégrés.</div>
+    </div>
+    <div class="consult-card">
+      <div class="consult-icon">≈</div>
+      <div class="consult-name">Reward Management</div>
+      <div class="consult-sub">Rewarding your talents</div>
+      <div class="consult-desc">Revue des avantages financiers et non-financiers, modèle total reward cohérent et lié au modèle de compétences pour motiver et différencier vos talents.</div>
+    </div>
+    <div class="consult-card">
+      <div class="consult-icon">⟳</div>
+      <div class="consult-name">Retention &amp; Exit Management</div>
+      <div class="consult-sub">Retaining your talents</div>
+      <div class="consult-desc">Identification des talents clés, plans de talent management pro-actifs, analyse des départs et recommandations pour fidéliser vos meilleurs collaborateurs.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TÉMOIGNAGES -->
+<section class="testimonials-section" id="testimonials">
+  <div class="section-tag">Témoignages</div>
+  <h2 class="section-title">Ce que disent <em>mes clients</em></h2>
+  <p class="section-intro">Des résultats concrets, mesurables, obtenus grâce à un accompagnement personnalisé et une approche orientée solutions.</p>
+  <div class="testimonials-grid">
+    <div class="testi-card">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">Grâce au coaching de carrière, j'ai enfin trouvé la clarté que je cherchais depuis des mois. J'ai changé de secteur avec confiance et décroché un poste aligné avec mes vraies valeurs.</p>
+      <div class="testi-author">Sophie M.</div>
+      <div class="testi-role">Manager, transition vers le secteur non-profit</div>
+      <span class="testi-result">Reconversion réussie en 4 mois</span>
+    </div>
+    <div class="testi-card">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">Le coaching assessment centers m'a permis d'aborder mon évaluation avec beaucoup plus de sérénité. Les exercices fictifs et les feedbacks ont été déterminants pour ma réussite.</p>
+      <div class="testi-author">Thomas K.</div>
+      <div class="testi-role">Candidat EU institutions</div>
+      <span class="testi-result">Assessment center réussi du premier coup</span>
+    </div>
+    <div class="testi-card">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">Arrivée en Belgique sans réseau, j'ai trouvé un emploi en 3 mois grâce à l'expat coaching. L'approche pratique — CV, LinkedIn, entretiens — m'a vraiment donné les outils pour réussir.</p>
+      <div class="testi-author">Ana C.</div>
+      <div class="testi-role">Expatriée, profil marketing</div>
+      <span class="testi-result">Emploi trouvé en 3 mois à Bruxelles</span>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="section-tag">Questions fréquentes</div>
+  <h2 class="section-title">Tout ce que vous <em>devez savoir</em></h2>
+  <div class="faq-wrap">
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">La séance découverte est-elle vraiment gratuite ? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Oui, totalement gratuite et sans engagement. C'est un premier entretien de 30 minutes pour comprendre votre situation, vos objectifs et vérifier si un accompagnement est pertinent pour vous. Si ce n'est pas le cas, je vous le dirai honnêtement.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Les séances se déroulent en présentiel ou à distance ? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Les séances de coaching sont proposées en visioconférence, ce qui me permet d'accompagner des clients partout en Belgique, en France et à l'international. Le bilan de compétences peut également être réalisé à distance ou en combiné selon vos préférences.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">En combien de séances voit-on des résultats ? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Cela dépend de votre objectif et de votre point de départ. Pour le coaching de carrière, des premières clarifications émergent souvent dès la 2ème ou 3ème session. Le bilan de compétences est structuré sur 7 séances étalées sur 4 mois pour un résultat solide et durable.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Dans quelle(s) langue(s) les sessions se déroulent-elles ? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Toutes les sessions de coaching et de conseil sont disponibles en français et en anglais. Vous choisissez la langue dans laquelle vous vous sentez le plus à l'aise pour avancer.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">La confidentialité est-elle garantie ? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Absolument. En tant que coach certifiée ICF, je respecte un code éthique strict. Tout ce qui est partagé lors des séances reste strictement confidentiel. Aucune information n'est communiquée à un tiers sans votre accord explicite.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Quelle est la différence entre coaching, thérapie et mentoring ? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Le coaching est orienté vers le futur et les solutions : il vous aide à atteindre des objectifs précis en activant vos propres ressources. La thérapie traite des blessures du passé. Le mentoring implique un expert qui partage son expérience. En coaching, je ne vous dis pas quoi faire — je vous aide à trouver vos propres réponses.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="section-tag">Contact</div>
+  <h2 class="section-title" style="color:var(--cream)">Commençons par une <em style="color:var(--gold-light)">conversation</em></h2>
+  <p class="section-intro">Réservez votre séance découverte gratuite ou posez-moi directement vos questions. Je vous réponds dans les 48h.</p>
+  <div class="contact-grid">
+    <div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Prénom</label>
+          <input class="form-input" type="text" placeholder="Marie">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nom</label>
+          <input class="form-input" type="text" placeholder="Dupont">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" placeholder="marie@exemple.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Service souhaité</label>
+        <select class="form-select">
+          <option value="">Choisissez un service...</option>
+          <option>Career Coaching</option>
+          <option>Women Life &amp; Career Coaching</option>
+          <option>Burn-out / Bore-out / Brown-out</option>
+          <option>Expat Career Coaching</option>
+          <option>Executive &amp; Leadership Coaching</option>
+          <option>Assessment Centers Coaching</option>
+          <option>Bilan de compétences</option>
+          <option>Talent Management Consulting</option>
+          <option>Séance découverte (gratuite)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Parlez-moi de votre situation</label>
+        <textarea class="form-textarea" placeholder="En quelques mots, quelle est votre situation actuelle et ce que vous souhaitez accomplir..."></textarea>
+      </div>
+      <button class="form-submit">Envoyer ma demande →</button>
+    </div>
+    <div>
+      <div class="contact-info-items">
+        <div class="ci-item">
+          <div class="ci-dot">✉</div>
+          <div>
+            <div class="ci-label">Email</div>
+            <div class="ci-val">contact@talentsonthemove.com</div>
+          </div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-dot">◎</div>
+          <div>
+            <div class="ci-label">Localisation</div>
+            <div class="ci-val">Belgique · Sessions à distance (FR &amp; EN)</div>
+          </div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-dot">in</div>
+          <div>
+            <div class="ci-label">LinkedIn</div>
+            <div class="ci-val">linkedin.com/in/talentsonthemove</div>
+          </div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-dot">◷</div>
+          <div>
+            <div class="ci-label">Délai de réponse</div>
+            <div class="ci-val">Sous 48h ouvrées</div>
+          </div>
+        </div>
+      </div>
+      <div class="lang-badges">
+        <span class="lang-badge">🇫🇷 Français</span>
+        <span class="lang-badge">🇬🇧 English</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Talents <span>on the</span> Move</div>
+  <div>© 2024 Talents on the Move · Coaching &amp; Talent Management Consulting · Belgique</div>
+  <div>PCC · ICF Certified</div>
+</footer>
+
+<script>
+  function toggleFaq(el) {
+    const wasOpen = el.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) el.classList.add('open');
+  }
+
+  // Smooth active nav
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
+    });
+  });
+</script>
+</body>
+</html>
